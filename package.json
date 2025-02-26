@@ -30,6 +30,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.6.1",
     "@electron-forge/plugin-fuses": "^7.6.1",
     "@electron-forge/plugin-vite": "^7.6.1",
+    "@electron-forge/publisher-github": "^7.7.0",
     "@electron-forge/shared-types": "^7.4.0",
     "@electron/fuses": "^1.8.0",
     "@eslint/compat": "^1.2.6",
@@ -78,6 +79,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "electron-squirrel-startup": "^1.0.1",
+    "electron-updater": "^6.3.9",
     "i18next": "^24.2.2",
     "lucide-react": "^0.475.0",
     "react": "^19.0.0",
@@ -86,5 +88,22 @@
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.1"
+  },
+  "config": {
+    "forge": {
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "Muhammad-Usman-911",
+              "name": "electronforge-autoupdate"
+            },
+            "prerelease": false,
+            "draft": false
+          }
+        }
+      ]
+    }
   }
 }

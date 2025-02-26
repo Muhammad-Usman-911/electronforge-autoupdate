@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ToggleTheme from "@/components/ToggleTheme";
 import { useTranslation } from "react-i18next";
 import LangToggle from "@/components/LangToggle";
@@ -7,6 +7,32 @@ import InitialIcons from "@/components/template/InitialIcons";
 
 export default function HomePage() {
   const { t } = useTranslation();
+  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [updateDownloaded, setUpdateDownloaded] = useState(false);
+
+  useEffect(() => {
+    window.electron.ipcRenderer.on("update-available", () => {
+      setUpdateAvailable(true);
+    });
+
+    window.electron.ipcRenderer.on("update-downloaded", () => {
+      setUpdateAvailable(false);
+      setUpdateDownloaded(true);
+    });
+
+    return () => {
+      window.electron.ipcRenderer.removeAllListeners("update-available");
+      window.electron.ipcRenderer.removeAllListeners("update-downloaded");
+    };
+  }, []);
+
+  const handleDownloadUpdate = () => {
+    window.electron.ipcRenderer.send("download-update");
+  };
+
+  const handleRestartAndUpdate = () => {
+    window.electron.ipcRenderer.send("restart-and-update");
+  };
 
   return (
     <div className="flex h-full flex-col">
@@ -22,6 +48,26 @@ export default function HomePage() {
         <ToggleTheme />
       </div>
       <Footer />
+
+      {/* Update Button - Appears when an update is available */}
+      {updateAvailable && (
+        <button
+          onClick={handleDownloadUpdate}
+          className="fixed bottom-5 right-5 bg-blue-600 text-white px-4 py-2 rounded shadow-lg"
+        >
+          {t("updateAvailable")}
+        </button>
+      )}
+
+      {/* Restart & Install Button - Appears after download */}
+      {updateDownloaded && (
+        <button
+          onClick={handleRestartAndUpdate}
+          className="fixed bottom-5 right-5 bg-green-600 text-white px-4 py-2 rounded shadow-lg"
+        >
+          {t("restartToUpdate")}
+        </button>
+      )}
     </div>
   );
 }
