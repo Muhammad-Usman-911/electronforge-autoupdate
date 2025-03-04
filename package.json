@@ -78,6 +78,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "electron-squirrel-startup": "^1.0.1",
+    "electron-updater": "^6.3.9",
     "i18next": "^24.2.2",
     "lucide-react": "^0.475.0",
     "react": "^19.0.0",
