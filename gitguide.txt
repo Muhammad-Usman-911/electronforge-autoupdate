@@ -1,0 +1,6 @@
+After changing make pr with main:
+git add .               # Stage all changes
+git commit -m "Add auto-update feature"  # Commit changes
+git push origin auto-update-feature  # Push the branch to GitHub
+
+then merge them.

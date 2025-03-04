@@ -17,8 +17,16 @@ interface ElectronWindow {
   maximize: () => Promise<void>;
   close: () => Promise<void>;
 }
-
+interface AutoUpdatesContext {
+  checkForUpdates: () => Promise<void>;
+  downloadUpdate: () => Promise<void>;
+  installUpdate: () => Promise<void>;
+  onUpdateAvailable: (callback: () => void) => void;
+  onUpdateDownloaded: (callback: () => void) => void;
+  onDownloadProgress: (callback: (progress: number) => void) => void;
+}
 declare interface Window {
   themeMode: ThemeModeContext;
   electronWindow: ElectronWindow;
+  autoUpdates: AutoUpdatesContext;
 }
