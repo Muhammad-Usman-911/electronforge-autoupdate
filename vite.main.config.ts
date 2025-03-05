@@ -7,6 +7,8 @@ import {
   pluginHotRestart,
 } from "./vite.base.config";
 
+const filteredExternal = external.filter(mod => mod !== 'electron-updater');
+
 // https://vitejs.dev/config
 export default defineConfig((env) => {
   const forgeEnv = env as ConfigEnv<"build">;
@@ -20,7 +22,7 @@ export default defineConfig((env) => {
         formats: ["cjs"],
       },
       rollupOptions: {
-        external,
+        external:filteredExternal,
       },
     },
     plugins: [pluginHotRestart("restart")],
